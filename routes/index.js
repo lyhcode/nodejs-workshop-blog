@@ -5,7 +5,7 @@ var ObjectID = require('mongodb').ObjectID;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  MongoClient.connect('mongodb://localhost:27017/local', function (err, db) {
+  MongoClient.connect('mongodb://localhost:27017/blog', function (err, db) {
     if (err) throw err;
 
     db.collection('post').find().toArray(function (err, result) {
@@ -16,7 +16,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/show', function(req, res, next) {
-  MongoClient.connect('mongodb://localhost:27017/local', function (err, db) {
+  MongoClient.connect('mongodb://localhost:27017/blog', function (err, db) {
     if (err) throw err;
 
     db.collection('post').findOne({_id: new ObjectID(req.query.id)})
