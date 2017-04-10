@@ -59,6 +59,8 @@
             <h2><%= post.title %></h2>
             <p><%= post.short %></p>
             <a href="/show?id=<%= post._id %>" class="btn btn-primary">閱讀全文</a>
+
+            <button type="button" class="btn btn-danger btnDelete" data-id="<%= post._id %>">刪除</button>
           </div>
         </div>
 
@@ -69,6 +71,23 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+    $(function() {
+      $('.btnDelete').click(function() {
+        var post_id = $(this).data('id');
+        if (confirm("是否要刪除 " + post_id)) {
+          $.ajax({
+            url: '/api/posts/' + post_id,
+            type: 'DELETE',
+            success: function(result) {
+              location.reload();
+            }
+          });
+        }
+      });
+    });
+    </script>
 
   </body>
 </html>
