@@ -15,13 +15,26 @@ router.get('/', function(req, res, next) {
   });
 });
 
-router.get('/show', function(req, res, next) {
+router.get('/show-:id', function(req, res, next) {
   MongoClient.connect('mongodb://localhost:27017/blog', function (err, db) {
     if (err) throw err;
 
-    db.collection('post').findOne({_id: new ObjectID(req.query.id)})
+    db.collection('post').findOne({_id: new ObjectID(req.params.id)})
     .then(function(result) {
       res.render('show', { title: result.title, post: result });
+    });
+  });
+});
+
+router.get('/create', function(req, res, next) {
+  res.render('create', {});
+});
+
+router.get('/edit-:id', function(req, res, next) {
+  MongoClient.connect('mongodb://localhost:27017/blog', function (err, db) {
+    db.collection('post').findOne({_id: new ObjectID(req.params.id)})
+    .then(function(result) {
+      res.render('edit', { post: result });
     });
   });
 });

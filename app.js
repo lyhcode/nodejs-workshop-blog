@@ -11,6 +11,8 @@ var posts = require('./routes/posts');
 
 var app = express();
 
+console.log("load app.js");
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
